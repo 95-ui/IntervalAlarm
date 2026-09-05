@@ -1,464 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1A1A2E"
-    android:fillViewport="true">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#121212">
 
+    <!-- Titel -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Interval Alarm Multi"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Deine Erinnerungen"
+        android:textSize="15sp"
+        android:textColor="#BBBBBB"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Liste der Erinnerungen -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerReminders"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false" />
+
+    <!-- Leerer Zustand -->
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Noch keine Erinnerungen.\nTippe auf + um eine hinzuzufügen."
+        android:textSize="16sp"
+        android:textColor="#888888"
+        android:visibility="gone" />
+
+    <!-- Buttons unten -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:orientation="horizontal"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp">
 
-        <!-- App Titel -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="⏰ Interval Alarm"
-            android:textSize="28sp"
-            android:textColor="#E94560"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginBottom="8dp" />
-
-        <!-- Status Anzeige -->
-        <TextView
-            android:id="@+id/tvStatus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="🔴 Alarm ist INAKTIV"
+        <Button
+            android:id="@+id/btnStartAll"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:text="Alle starten"
             android:textSize="16sp"
-            android:textColor="#FF6B6B"
-            android:gravity="center"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Kreisförmiger Countdown -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="#16213E"
-            app:cardCornerRadius="24dp"
-            app:cardElevation="12dp"
-            android:layout_marginBottom="16dp">
-
-            <com.example.intervalalarm.CircularCountdownView
-                android:id="@+id/circularCountdown"
-                android:layout_width="match_parent"
-                android:layout_height="280dp"
-                android:layout_gravity="center"
-                android:padding="16dp" />
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Datei Auswahl Bereich -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="#16213E"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            android:layout_marginBottom="12dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="🎵 Audiodatei"
-                    android:textSize="16sp"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp" />
-
-                <TextView
-                    android:id="@+id/tvSelectedFile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Keine Datei gewählt"
-                    android:textSize="14sp"
-                    android:textColor="#A0A0B0"
-                    android:layout_marginBottom="12dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnSelectFile"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="📁 Datei wählen"
-                        android:textSize="12sp"
-                        app:backgroundTint="#E94560"
-                        android:layout_marginEnd="4dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnTestPlay"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="▶ Test"
-                        android:textSize="12sp"
-                        app:backgroundTint="#0F3460"
-                        android:layout_marginHorizontal="4dp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnTestStop"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="⏹ Stop"
-                        android:textSize="12sp"
-                        app:backgroundTint="#533483"
-                        android:layout_marginStart="4dp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Intervall Einstellungen -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="#16213E"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            android:layout_marginBottom="12dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="⏱ Intervall"
-                    android:textSize="16sp"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Alle "
-                        android:textColor="#CCCCCC"
-                        android:textSize="15sp" />
-
-                    <EditText
-                        android:id="@+id/etIntervalValue"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text="5"
-                        android:textColor="#FFFFFF"
-                        android:backgroundTint="#E94560"
-                        android:gravity="center"
-                        android:textSize="18sp"
-                        android:layout_marginHorizontal="8dp" />
-
-                    <Spinner
-                        android:id="@+id/spinnerUnit"
-                        android:layout_width="0dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="1"
-                        android:entries="@array/interval_units"
-                        android:background="@android:drawable/btn_dropdown"
-                        android:popupBackground="#16213E" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Abspieldauer -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="#16213E"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            android:layout_marginBottom="12dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <CheckBox
-                    android:id="@+id/cbLimitDuration"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="⏳ Abspieldauer begrenzen"
-                    android:textColor="#FFFFFF"
-                    android:buttonTint="#E94560"
-                    android:layout_marginBottom="8dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Max. "
-                        android:textColor="#CCCCCC" />
-
-                    <EditText
-                        android:id="@+id/etMaxSeconds"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:text="10"
-                        android:textColor="#FFFFFF"
-                        android:backgroundTint="#E94560"
-                        android:gravity="center"
-                        android:enabled="false"
-                        android:layout_marginHorizontal="8dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" Sekunden"
-                        android:textColor="#CCCCCC" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Lautstärke -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="#16213E"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            android:layout_marginBottom="12dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="🔊 Lautstärke"
-                        android:textSize="16sp"
-                        android:textColor="#FFFFFF"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvVolumePercent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="80%"
-                        android:textColor="#E94560"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-                <SeekBar
-                    android:id="@+id/seekBarVolume"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:max="100"
-                    android:progress="80"
-                    android:progressTint="#E94560"
-                    android:thumbTint="#E94560"
-                    android:layout_marginTop="8dp" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Zeitfenster -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="#16213E"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            android:layout_marginBottom="12dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <CheckBox
-                    android:id="@+id/cbTimeWindow"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="🕐 Zeitfenster festlegen"
-                    android:textColor="#FFFFFF"
-                    android:buttonTint="#E94560"
-                    android:layout_marginBottom="8dp" />
-
-                <LinearLayout
-                    android:id="@+id/layoutTimeWindow"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:visibility="gone">
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnStartTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="08:00"
-                        app:backgroundTint="#0F3460"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="  bis  "
-                        android:textColor="#CCCCCC"
-                        android:textSize="16sp" />
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnEndTime"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="22:00"
-                        app:backgroundTint="#0F3460"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Benachrichtigungen -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="#16213E"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            android:layout_marginBottom="12dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="🔔 Benachrichtigungen"
-                    android:textSize="16sp"
-                    android:textColor="#FFFFFF"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="8dp" />
-
-                <CheckBox
-                    android:id="@+id/cbShowNotification"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Countdown in Benachrichtigungsleiste"
-                    android:textColor="#CCCCCC"
-                    android:buttonTint="#E94560"
-                    android:checked="true"
-                    android:layout_marginBottom="8dp" />
-
-                <CheckBox
-                    android:id="@+id/cbCustomNotification"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Eigener Text bei Alarm"
-                    android:textColor="#CCCCCC"
-                    android:buttonTint="#E94560"
-                    android:layout_marginBottom="8dp" />
-
-                <EditText
-                    android:id="@+id/etNotificationText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="z.B.: Zeit für eine Pause! ⏰"
-                    android:text="Zeit für eine Pause! ⏰"
-                    android:textColor="#FFFFFF"
-                    android:textColorHint="#666666"
-                    android:backgroundTint="#E94560"
-                    android:enabled="false"
-                    android:inputType="text" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Start / Stop Buttons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="24dp">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnStartAlarm"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:text="▶  ALARM STARTEN"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:backgroundTint="#00C853"
-                app:cornerRadius="12dp"
-                android:layout_marginEnd="8dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnStopAlarm"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:text="⏹  ALARM STOPPEN"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:backgroundTint="#E94560"
-                app:cornerRadius="12dp"
-                android:layout_marginStart="8dp" />
-
-        </LinearLayout>
-
+            android:textColor="#FFFFFF"
+            android:layout_marginEnd="8dp"
+            app:backgroundTint="#E94560" />
+
+        <!--
+          WICHTIG: style muss zur MaterialComponents-Familie des Theme
+          passen (siehe themes.xml). Vorher wurde hier fälschlicherweise
+          ein Material3-Style auf einem MaterialComponents-Theme verwendet,
+          wodurch die Textgröße nicht sauber aufgelöst wurde und winzig
+          erschien. Zusätzlich textSize explizit gesetzt, damit es garantiert
+          lesbar bleibt.
+        -->
+        <Button
+            android:id="@+id/btnStopAll"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:text="Alle stoppen"
+            android:textSize="16sp"
+            android:textColor="#E94560"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
     </LinearLayout>
 
-</ScrollView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="#E94560"
+        app:tint="@android:color/white" />
+
+</LinearLayout>
